@@ -1,8 +1,8 @@
-package org.dmly.multithreading.synchronization.not_sync;
+package org.dmly.multithreading.synchronization.synch;
 
 public class Caller implements Runnable{
     private String msg;
-    private Callme target;
+    final private Callme target;
     private Thread thread;
 
     public Caller(String msg, Callme target) {
@@ -13,7 +13,9 @@ public class Caller implements Runnable{
 
     @Override
     public void run() {
-        target.call(msg);
+        synchronized (target) {
+            target.call(msg);
+        }
     }
 
     public Thread getThread() {

@@ -1,4 +1,4 @@
-package org.dmly.multithreading.synchronization.not_sync;
+package org.dmly.multithreading.synchronization.synch;
 
 public class Callme {
     void call(String msg) {
