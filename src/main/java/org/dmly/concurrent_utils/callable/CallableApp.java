@@ -1,9 +1,6 @@
 package org.dmly.concurrent_utils.callable;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class CallableApp {
 
@@ -13,6 +10,18 @@ public class CallableApp {
         Future<Integer> sumResult = executorService.submit(new Sum(10));
         Future<Double> hypotResult = executorService.submit(new Hypot(3, 4));
         Future<Integer> factorialResult = executorService.submit(new Factorial(5));
+
+        try {
+            System.out.println(sumResult.get());
+            System.out.println(hypotResult.get());
+            System.out.println(factorialResult.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
     }
 }
 
