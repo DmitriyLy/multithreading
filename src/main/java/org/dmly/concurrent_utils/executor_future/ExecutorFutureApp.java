@@ -26,9 +26,16 @@ public class ExecutorFutureApp {
             System.out.println("Fourth: " + counter);
         }, duration));
 
+        System.out.println("First starting......");
         System.out.println(first.get());
+
+        System.out.println("Second starting......");
         System.out.println(second.get());
+
+        System.out.println("Third starting......");
         System.out.println(third.get());
+
+        System.out.println("Fourth starting......");
         System.out.println(fourth.get());
 
         executorService.shutdown();
