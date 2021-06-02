@@ -26,19 +26,55 @@ public class ExecutorFutureApp {
             System.out.println("Fourth: " + counter);
         }, duration));
 
-        System.out.println("First starting......");
-        System.out.println(first.get());
+        new Thread(() -> {
+            boolean firstDone = false;
+            boolean secondDone = false;
+            boolean thirdDone = false;
+            boolean fourthDone = false;
 
-        System.out.println("Second starting......");
-        System.out.println(second.get());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        System.out.println("Third starting......");
-        System.out.println(third.get());
+            try {
+                while (true) {
+                    if (!firstDone && (first.isDone() || first.isCancelled())) {
+                        System.out.println(first.get());
+                        firstDone = true;
+                    }
 
-        System.out.println("Fourth starting......");
-        System.out.println(fourth.get());
+                    if (!secondDone && (second.isDone() || second.isCancelled())) {
+                        System.out.println(second.get());
+                        secondDone = true;
+                    }
 
-        executorService.shutdown();
+                    if (!thirdDone && (third.isDone() || third.isCancelled())) {
+                        System.out.println(third.get());
+                        thirdDone = true;
+                    }
+
+                    if (!fourthDone && (fourth.isDone() || fourth.isCancelled())) {
+                        System.out.println(fourth.get());
+                        fourthDone = true;
+                    }
+
+                    if (firstDone && secondDone && thirdDone && fourthDone) {
+                        break;
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            executorService.shutdown();
+
+            System.out.println(Thread.currentThread().getName() + " finished.");
+
+        }, "Watcher").start();
+
+        System.out.println(Thread.currentThread().getName() + " finished.");
     }
 }
 
