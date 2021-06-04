@@ -5,7 +5,7 @@ import java.util.concurrent.RecursiveAction;
 
 public class ForkJoinDemo {
     public static void main(String[] args) {
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 
         double[] nums = new double[100000];
 
